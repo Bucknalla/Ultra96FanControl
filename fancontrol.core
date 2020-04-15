@@ -1,0 +1,60 @@
+CAPI=2:
+name : warc:cores:fan_control:0.0.1
+filesets:
+  fan_control:
+    files:
+      - rtl/ip/fancontrol/rtl/clock_divider.v
+      - rtl/ip/fancontrol/rtl/defines.v
+      - rtl/ip/fancontrol/rtl/fan_control.v
+      - rtl/ip/fancontrol/rtl/pwm.v
+      - rtl/ip/fancontrol/rtl/ultra96_fan_control_s00_axi.v
+      - rtl/ip/fancontrol/rtl/ultra96_fan_control.v
+      - rtl/ip/fancontrol/xgui/ultra96_fan_control_v1_0.tcl: {file_type: tclSource}
+      - rtl/ip/fancontrol/component.xml: {file_type: user}
+    file_type : verilogSource
+
+  not:
+    files:
+      - rtl/ip/not/rtl/not.v
+      - rtl/ip/not/xgui/Not_v1_0.tcl: {file_type: tclSource}
+      - rtl/ip/not/component.xml: {file_type: user}
+    file_type : verilogSource
+
+  ultra96v1:
+    files:
+      - rtl/ultra96v1.xdc
+      - rtl/base_design_v1.tcl: {file_type: tclSource}
+    file_type : xdc
+
+  export_hardware:
+    files: [sw/export_hardware.tcl : {file_type : user, copyto : export_hardware.tcl}]
+
+targets:
+  default:
+    filesets : [rtl]
+    toplevel: ["is_toplevel? (base_wrapper)"]
+
+  sim:
+    default_tool : icarus
+    filesets : [rtl, tb]
+    toplevel : [tst_bench_top]
+
+  ultra96_v1: &ultra96
+    default_tool: vivado
+    description : Ultra96v1 ZynqMP Device
+    filesets : [export_hardware, fan_control, not, ultra96v1]
+    hooks: 
+      post_build: [" linux? (gen_linux)"]
+    tools:
+      vivado:
+        part : xczu3eg-sbva484-1-e
+    toplevel : ultra96_fan_wrapper
+
+  ultra96_v2:
+    <<: *ultra96
+    description : Ultra96v2 ZynqMP Device
+    filesets : [ultra96v2, rtl]
+
+scripts:
+  gen_linux:
+    cmd: [vivado,-quiet,-nolog,-notrace,-mode,batch,-source,export_hardware.tcl]

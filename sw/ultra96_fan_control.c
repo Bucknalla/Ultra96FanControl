@@ -1,6 +1,6 @@
 
 
 /***************************** Include Files *******************************/
-#include "Ultra96_fan_control.h"
+#include "ultra96_fan_control.h"
 
 /************************** Function Definitions ***************************/

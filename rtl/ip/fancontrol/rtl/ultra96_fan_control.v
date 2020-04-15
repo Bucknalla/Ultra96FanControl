@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 1 ps
 
-	module Ultra96_fan_control_v1_0 #
+	module Ultra96_fan_control #
 	(
 		// Users to add parameters here
 

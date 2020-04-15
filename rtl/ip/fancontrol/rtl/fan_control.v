@@ -21,7 +21,7 @@
 
 
 
-`include "Defines.v"
+`include "defines.v"
 
 module FanControl(
     input            clk_in_100,
@@ -35,8 +35,22 @@ module FanControl(
     
     output reg              PWM_out,
     output wire `Unsigned   real_temp_out,
-    output reg [31:0]       dbg_out [15:0]
-    
+    output reg [31:0]       dbg_out_0,
+    output reg [31:0]       dbg_out_1,
+    output reg [31:0]       dbg_out_2,
+    output reg [31:0]       dbg_out_3, 
+    output reg [31:0]       dbg_out_4, 
+    output reg [31:0]       dbg_out_5, 
+    output reg [31:0]       dbg_out_6, 
+    output reg [31:0]       dbg_out_7, 
+    output reg [31:0]       dbg_out_8, 
+    output reg [31:0]       dbg_out_9, 
+    output reg [31:0]       dbg_out_10, 
+    output reg [31:0]       dbg_out_11,
+    output reg [31:0]       dbg_out_12,
+    output reg [31:0]       dbg_out_13,
+    output reg [31:0]       dbg_out_14, 
+    output reg [31:0]       dbg_out_15    
     );
     
     function `UFixed toUFixed;
@@ -146,7 +160,7 @@ module FanControl(
      uf_last_temp = toUFixed(8500);  // Reset last temp to max temp
      uf_last_PWM = toUFixed(4095);   // Reset last PWM to max PWM
      uf_max_PWM = toUFixed(4095);
-     dbg_out[0] = 0;
+     dbg_out_0 = 0;
    end
 
 
@@ -284,19 +298,19 @@ module FanControl(
     // debug registers
     always@ (posedge clk_in_100)
     begin
-        dbg_out[0] = state;
-        dbg_out[1] = uf_PWM;
-        dbg_out[2] = uf_use_PWM;
-        dbg_out[3] = uf_last_PWM;
+        dbg_out_0 = state;
+        dbg_out_1 = uf_PWM;
+        dbg_out_2 = uf_use_PWM;
+        dbg_out_3 = uf_last_PWM;
              
-        dbg_out[4] = uf_real_temp;
-        dbg_out[5] = uf_use_temp;
-        dbg_out[6] = uf_last_temp;
+        dbg_out_4 = uf_real_temp;
+        dbg_out_5 = uf_use_temp;
+        dbg_out_6 = uf_last_temp;
              
-        dbg_out[7] = uf_temp_error;
-        dbg_out[8] = uf_linear;
-             
-        dbg_out[9] = uf_max_PWM;
+        dbg_out_7 = uf_temp_error;
+        dbg_out_8 = uf_linear;
+            
+        dbg_out_9 = uf_max_PWM;
 
     end;
         

@@ -18,7 +18,23 @@
         input  wire TEMP_ALARM_IN,
         input wire [15:0] TEMP_IN,
         output wire PWM_OUT,
-        output wire [31:0] DBG_OUT [15:0],
+        // output wire [31:0] DBG_OUT [15:0],
+		output wire [31:0] DBG_OUT_0,
+		output wire [31:0] DBG_OUT_1,
+		output wire [31:0] DBG_OUT_2,
+		output wire [31:0] DBG_OUT_3, 
+		output wire [31:0] DBG_OUT_4, 
+		output wire [31:0] DBG_OUT_5, 
+		output wire [31:0] DBG_OUT_6, 
+		output wire [31:0] DBG_OUT_7, 
+		output wire [31:0] DBG_OUT_8, 
+		output wire [31:0] DBG_OUT_9, 
+		output wire [31:0] DBG_OUT_10, 
+		output wire [31:0] DBG_OUT_11,
+		output wire [31:0] DBG_OUT_12,
+		output wire [31:0] DBG_OUT_13,
+		output wire [31:0] DBG_OUT_14, 
+		output wire [31:0] DBG_OUT_15, 
 
 		// User ports ends
 		// Do not modify the ports beyond this line
@@ -500,16 +516,16 @@
 	        4'h3   : reg_data_out <= slv_reg3;
 	        4'h4   : reg_data_out <= TEMP_OUT;
 	        4'h5   : reg_data_out <= TEMP_ALARM_IN;
-	        4'h6   : reg_data_out <= DBG_OUT[0];
-	        4'h7   : reg_data_out <= DBG_OUT[1];
-	        4'h8   : reg_data_out <= DBG_OUT[2];
-	        4'h9   : reg_data_out <= DBG_OUT[3];
-	        4'hA   : reg_data_out <= DBG_OUT[4];
-	        4'hB   : reg_data_out <= DBG_OUT[5];
-	        4'hC   : reg_data_out <= DBG_OUT[6];
-	        4'hD   : reg_data_out <= DBG_OUT[7];
-	        4'hE   : reg_data_out <= DBG_OUT[8];
-	        4'hF   : reg_data_out <= DBG_OUT[9];
+	        4'h6   : reg_data_out <= DBG_OUT_0;
+	        4'h7   : reg_data_out <= DBG_OUT_1;
+	        4'h8   : reg_data_out <= DBG_OUT_2;
+	        4'h9   : reg_data_out <= DBG_OUT_3;
+	        4'hA   : reg_data_out <= DBG_OUT_4;
+	        4'hB   : reg_data_out <= DBG_OUT_5;
+	        4'hC   : reg_data_out <= DBG_OUT_6;
+	        4'hD   : reg_data_out <= DBG_OUT_7;
+	        4'hE   : reg_data_out <= DBG_OUT_8;
+	        4'hF   : reg_data_out <= DBG_OUT_9;
 	        default : reg_data_out <= 0;
 	      endcase
 	end
@@ -549,7 +565,22 @@
 
         .PWM_out(PWM_OUT),
         .real_temp_out(TEMP_OUT),
-        .dbg_out(DBG_OUT)
+        .dbg_out_0(DBG_OUT_0),
+        .dbg_out_1(DBG_OUT_1),
+        .dbg_out_2(DBG_OUT_2),
+        .dbg_out_3(DBG_OUT_3),
+        .dbg_out_4(DBG_OUT_4),
+        .dbg_out_5(DBG_OUT_5),
+        .dbg_out_6(DBG_OUT_6),
+        .dbg_out_7(DBG_OUT_7),
+        .dbg_out_8(DBG_OUT_8),
+        .dbg_out_9(DBG_OUT_9),
+        .dbg_out_10(DBG_OUT_10),
+        .dbg_out_11(DBG_OUT_11),
+        .dbg_out_12(DBG_OUT_12),
+        .dbg_out_13(DBG_OUT_13),
+        .dbg_out_14(DBG_OUT_14),
+        .dbg_out_15(DBG_OUT_15)
     );
        
 
