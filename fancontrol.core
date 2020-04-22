@@ -26,8 +26,26 @@ filesets:
       - rtl/base_design_v1.tcl: {file_type: tclSource}
     file_type : xdc
 
-  export_hardware:
-    files: [sw/export_hardware.tcl : {file_type : user, copyto : export_hardware.tcl}]
+  linux:
+    files: 
+      - sw/export_hardware.tcl : {copyto : export_hardware.tcl}
+      - sw/fsbl/fsbl.hsi : {copyto : fsbl.hsi}
+      - sw/pmufw/pmufw.hsi : {copyto : pmufw.hsi}
+      - sw/uboot/build_uboot.sh : {copyto : build_uboot.sh}
+      - sw/uboot/u-boot-xlnx-v2018.2-ultra96-bootmenu.diff  : {copyto : ultra-bootmenu.diff}
+      - sw/uboot/u-boot-xlnx-v2018.2-ultra96.diff  : {copyto : ultra.diff}
+      - sw/armtfw/build_armtfw.sh  : {copyto : build_armtfw.sh}
+      - sw/build_boot.sh : {copyto : build_boot.sh}
+      - sw/boot.bif : {copyto : boot.bif}
+      - sw/uEnv.txt : {copyto : uEnv.txt}
+      - sw/kernel/build_kernel.sh : {copyto : build_kernel.sh}
+      - sw/rootfs/setup_rootfs.sh : {copyto : setup_rootfs.sh}
+    file_type : user
+
+  debian:
+    files: 
+      - sw/rootfs/debian10.sh : {copyto : debian10.sh}
+    file_type : user
 
 targets:
   default:
@@ -42,9 +60,9 @@ targets:
   ultra96_v1: &ultra96
     default_tool: vivado
     description : Ultra96v1 ZynqMP Device
-    filesets : [export_hardware, fan_control, not, ultra96v1]
+    filesets : [fan_control, not, ultra96v1, " linux? (linux)"," linux? (debian)"]
     hooks: 
-      post_build: [" linux? (gen_linux)"]
+      post_build: [" linux? (export_hardware)"," linux? (build_fsbl)"," linux? (build_pmufw)"," linux? (build_uboot)"," linux? (build_armtfw)"," linux? (build_boot)"," linux? (build_kernel)"]
     tools:
       vivado:
         part : xczu3eg-sbva484-1-e
@@ -56,5 +74,27 @@ targets:
     filesets : [ultra96v2, rtl]
 
 scripts:
-  gen_linux:
+  export_hardware:
     cmd: [vivado,-quiet,-nolog,-notrace,-mode,batch,-source,export_hardware.tcl]
+
+  build_fsbl:
+    cmd: [hsi,-mode,tcl,-source,fsbl.hsi,-tclargs,ultra96_fan,warc_cores_fan_control_0.0.1]
+
+  build_pmufw:
+    cmd: [hsi,-mode,tcl,-source,pmufw.hsi,-tclargs,ultra96_fan,warc_cores_fan_control_0.0.1]
+
+  build_uboot:
+    cmd: [bash,build_uboot.sh]
+
+  build_armtfw:
+    cmd: [bash,build_armtfw.sh]
+
+  build_boot:
+    cmd: [bash,build_boot.sh]
+
+  build_kernel:
+    cmd: [bash,build_kernel.sh]
+
+  build_rootfs:
+    env: {DISTRO:"buster"}
+    cmd: [bash,setup_rootfs.sh]
