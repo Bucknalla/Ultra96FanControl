@@ -39,6 +39,9 @@ filesets:
       - sw/boot.bif : {copyto : boot.bif}
       - sw/uEnv.txt : {copyto : uEnv.txt}
       - sw/kernel/build_kernel.sh : {copyto : build_kernel.sh}
+      - sw/kernel/builddeb.diff : {copyto : builddeb.diff}
+      - sw/kernel/zynqmp-fpga-patch.diff : {copyto : zynqmp-fpga-patch.diff}
+      - sw/kernel/zynqmp-fpga.diff : {copyto : zynqmp-fpga.diff}
       - sw/rootfs/setup_rootfs.sh : {copyto : setup_rootfs.sh}
     file_type : user
 
